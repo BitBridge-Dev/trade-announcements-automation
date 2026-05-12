@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trade Opportunities</title>
+<style>
+:root{--text:#111827;--muted:#6b7280;--line:#e5e7eb;--link:#1d4ed8}
+*{box-sizing:border-box} body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#fff;color:var(--text)}
+.wrap{max-width:1020px;margin:0 auto;padding:24px 18px 40px} .hero{margin-bottom:16px} .eyebrow{font-size:.95rem;color:var(--muted);margin-bottom:8px}
+h1{margin:0 0 10px;font-size:2rem;line-height:1.2} p{margin:0 0 10px;line-height:1.55;color:#374151}
+.controls{display:grid;grid-template-columns:2fr 1fr 1fr 1fr auto;gap:12px;margin:20px 0 16px} .control{display:flex;flex-direction:column;gap:6px}
+label{font-size:.9rem;color:var(--muted)} input,select{padding:11px 12px;border:1px solid var(--line);border-radius:8px;font-size:1rem;background:#fff}
+.btn{padding:11px 14px;border:1px solid var(--line);border-radius:8px;background:#fff;cursor:pointer} .btn:hover{background:#f9fafb}
+.summary{font-weight:700;margin:10px 0 12px} .list{display:flex;flex-direction:column} .item{border-top:1px solid var(--line);padding:18px 0}
+.region{font-weight:700;margin-bottom:6px} .sponsor{font-size:1.1rem;font-weight:700;margin-bottom:8px} .posted{color:var(--muted);font-size:.95rem;margin-bottom:8px} .dates{font-size:.98rem;margin-bottom:10px}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px} .chip{border:1px solid #dbeafe;color:#1d4ed8;background:#eff6ff;border-radius:999px;padding:5px 10px;font-size:.82rem} .chip2{border:1px solid var(--line);color:#374151;background:#f9fafb;border-radius:999px;padding:5px 10px;font-size:.82rem}
+.learn a{color:var(--link);text-decoration:none;font-weight:700} .learn a:hover{text-decoration:underline} .note{margin-top:24px;padding:14px 16px;background:#fafafa;border:1px solid var(--line);border-radius:10px;color:#374151}
+@media (max-width:980px){.controls{grid-template-columns:1fr 1fr} .action{grid-column:1/-1}} @media (max-width:600px){.controls{grid-template-columns:1fr}} @media print{.controls,.btn,.note{display:none} .wrap{max-width:none;padding:.3in}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <section class="hero">
+    <div class="eyebrow">Trade Opportunities</div>
+    <h1>Training, apprenticeships, scholarships, and jobs</h1>
+    <p>This simple list includes four sections in one database: training, apprenticeships, scholarships, and jobs.</p>
+  </section>
+
+  <section class="controls">
+    <div class="control">
+      <label for="search">Search</label>
+      <input id="search" placeholder="HVAC, maritime, scholarship, BMCC, job">
+    </div>
+    <div class="control">
+      <label for="category">Section</label>
+      <select id="category"><option>All</option></select>
+    </div>
+    <div class="control">
+      <label for="region">Region</label>
+      <select id="region"><option>All</option></select>
+    </div>
+    <div class="control">
+      <label for="type">Type</label>
+      <select id="type"><option>All</option></select>
+    </div>
+    <div class="control action" style="justify-content:end">
+      <label>&nbsp;</label>
+      <button class="btn" id="pdfBtn">Open print view / Save PDF</button>
+    </div>
+  </section>
+
+  <div class="summary" id="summary">Loading...</div>
+  <section class="list" id="list"></section>
+  <div class="note">Jobs are tracked as links to official city or organization pages. Training and scholarship pages are kept in the same searchable list, and this page reads from trade_announcements_data.json so daily updates show automatically.</div>
+</div>
+<script>
+let DB = {updated:'', items:[]};
+const list = document.getElementById('list');
+const search = document.getElementById('search');
+const category = document.getElementById('category');
+const region = document.getElementById('region');
+const type = document.getElementById('type');
+const summary = document.getElementById('summary');
+
+function fillSelect(select, values){
+  select.innerHTML = '<option>All</option>';
+  values.forEach(v => {
+    const o = document.createElement('option');
+    o.value = v;
+    o.textContent = v;
+    select.appendChild(o);
+  });
+}
+
+function getRows(){
+  const q = search.value.trim().toLowerCase();
+  return DB.items.filter(x => {
+    const hay = JSON.stringify(x).toLowerCase();
+    return (!q || hay.includes(q)) &&
+      (category.value === 'All' || x.category === category.value) &&
+      (region.value === 'All' || x.region === region.value) &&
+      (type.value === 'All' || x.type === type.value);
+  });
+}
+
+function render(){
+  const rows = getRows();
+  summary.textContent = rows.length + ' results shown' + (DB.updated ? ' | Updated ' + DB.updated : '');
+  list.innerHTML = rows.map(x => `
+    <article class="item">
+      <div class="region">${x.category} | ${x.region}</div>
+      <div class="sponsor">${x.sponsor}</div>
+      <div class="posted">${x.posted}</div>
+      <div class="dates">Opening Date ${x.opening_date} Closing Date ${x.closing_date}</div>
+      <div class="meta">
+        <span class="chip">${x.type}</span>
+        <span class="chip2">${x.funding}</span>
+      </div>
+      <div class="learn">- <a href="${x.details_url}" target="_blank">Learn more</a></div>
+    </article>
+  `).join('');
+  if(!rows.length) list.innerHTML = '<article class="item"><div class="sponsor">No results found.</div><div class="posted">Try a broader search or change a filter.</div></article>';
+}
+
+function openPrintView(){
+  const rows = getRows();
+  const body = rows.map(x => `
+    <article style="border-top:1px solid #e5e7eb;padding:16px 0;">
+      <div style="font-weight:700;margin-bottom:6px;">${x.category} | ${x.region}</div>
+      <div style="font-size:18px;font-weight:700;margin-bottom:8px;">${x.sponsor}</div>
+      <div style="color:#6b7280;margin-bottom:8px;">${x.posted}</div>
+      <div style="margin-bottom:8px;">Opening Date ${x.opening_date} Closing Date ${x.closing_date}</div>
+      <div style="margin-bottom:8px;">${x.type} | ${x.funding}</div>
+      <div><a href="${x.details_url}">${x.details_url}</a></div>
+    </article>
+  `).join('');
+  const w = window.open('', '_blank');
+  w.document.write(`<!DOCTYPE html><html><head><title>Print</title><style>body{font-family:Arial,Helvetica,sans-serif;padding:24px;color:#111827}h1{margin:0 0 8px}p{color:#374151}a{color:#1d4ed8}</style></head><body><h1>Trade Opportunities</h1><p>${rows.length} results shown</p>${body}</body></html>`);
+  w.document.close();
+  w.focus();
+  setTimeout(() => w.print(), 400);
+}
+
+document.getElementById('pdfBtn').addEventListener('click', openPrintView);
+search.addEventListener('input', render);
+category.addEventListener('change', render);
+region.addEventListener('change', render);
+type.addEventListener('change', render);
+
+fetch('trade_announcements_data.json')
+  .then(r => r.json())
+  .then(data => {
+    DB = data;
+    fillSelect(category, [...new Set(DB.items.map(x => x.category))].sort());
+    fillSelect(region, [...new Set(DB.items.map(x => x.region))].sort());
+    fillSelect(type, [...new Set(DB.items.map(x => x.type))].sort());
+    render();
+  })
+  .catch(() => {
+    summary.textContent = 'Could not load data file.';
+    list.innerHTML = '<article class="item"><div class="sponsor">Data file not loaded.</div><div class="posted">Make sure trade_announcements_data.json is in the same folder as this HTML file.</div></article>';
+  });
+</script>
+</body>
+</html>
