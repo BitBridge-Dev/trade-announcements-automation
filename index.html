@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trade Opportunities</title>
+<style>
+:root{--text:#111827;--muted:#6b7280;--line:#e5e7eb;--link:#1d4ed8}
+*{box-sizing:border-box} body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#fff;color:var(--text)}
+.wrap{max-width:1020px;margin:0 auto;padding:24px 18px 40px} .hero{margin-bottom:16px} .eyebrow{font-size:.95rem;color:var(--muted);margin-bottom:8px}
+h1{margin:0 0 10px;font-size:2rem;line-height:1.2} p{margin:0 0 10px;line-height:1.55;color:#374151}
+.controls{display:grid;grid-template-columns:2fr 1fr 1fr 1fr auto;gap:12px;margin:20px 0 16px} .control{display:flex;flex-direction:column;gap:6px}
+label{font-size:.9rem;color:var(--muted)} input,select{padding:11px 12px;border:1px solid var(--line);border-radius:8px;font-size:1rem;background:#fff}
+.btn{padding:11px 14px;border:1px solid var(--line);border-radius:8px;background:#fff;cursor:pointer} .btn:hover{background:#f9fafb}
+.summary{font-weight:700;margin:10px 0 12px} .list{display:flex;flex-direction:column} .item{border-top:1px solid var(--line);padding:18px 0}
+.region{font-weight:700;margin-bottom:6px} .sponsor{font-size:1.1rem;font-weight:700;margin-bottom:8px} .posted{color:var(--muted);font-size:.95rem;margin-bottom:8px} .dates{font-size:.98rem;margin-bottom:10px}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px} .chip{border:1px solid #dbeafe;color:#1d4ed8;background:#eff6ff;border-radius:999px;padding:5px 10px;font-size:.82rem} .chip2{border:1px solid var(--line);color:#374151;background:#f9fafb;border-radius:999px;padding:5px 10px;font-size:.82rem}
+.learn a{color:var(--link);text-decoration:none;font-weight:700} .learn a:hover{text-decoration:underline} .note{margin-top:24px;padding:14px 16px;background:#fafafa;border:1px solid var(--line);border-radius:10px;color:#374151}
+@media (max-width:980px){.controls{grid-template-columns:1fr 1fr} .action{grid-column:1/-1}} @media (max-width:600px){.controls{grid-template-columns:1fr}} @media print{.controls,.btn,.note{display:none} .wrap{max-width:none;padding:.3in}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <section class="hero">
+    <div class="eyebrow">Trade Opportunities</div>
+    <h1>Training, apprenticeships, scholarships, and jobs</h1>
+    <p>This single-file version includes all data inside the page, so it works without a separate JSON file.</p>
+  </section>
+
+  <section class="controls">
+    <div class="control">
+      <label for="search">Search</label>
+      <input id="search" placeholder="HVAC, maritime, scholarship, BMCC, job">
+    </div>
+    <div class="control">
+      <label for="category">Section</label>
+      <select id="category"><option>All</option></select>
+    </div>
+    <div class="control">
+      <label for="region">Region</label>
+      <select id="region"><option>All</option></select>
+    </div>
+    <div class="control">
+      <label for="type">Type</label>
+      <select id="type"><option>All</option></select>
+    </div>
+    <div class="control action" style="justify-content:end">
+      <label>&nbsp;</label>
+      <button class="btn" id="pdfBtn">Open print view / Save PDF</button>
+    </div>
+  </section>
+
+  <div class="summary" id="summary"></div>
+  <section class="list" id="list"></section>
+  <div class="note">This version is easier for GitHub Pages because only one file is required for the front end.</div>
+</div>
+<script>
+const DB = {"updated": "2026-05-12", "items": [{"category": "Apprenticeship", "region": "New York City", "sponsor": "LIUNA Local 731 Training Fund", "posted": "May 07, 2026 | 3:22 PM ET", "opening_date": "6/30/2026", "closing_date": "7/14/2026", "details_url": "https://dol.ny.gov/apprenticeship/apprenticeship-announcements", "type": "Registered apprenticeship", "funding": "Earn while you learn / training generally at no cost"}, {"category": "Apprenticeship", "region": "New York City", "sponsor": "Plumbers Local # 1 JAC", "posted": "April 30, 2026 | 10:50 AM ET", "opening_date": "6/8/2026", "closing_date": "6/22/2026", "details_url": "https://dol.ny.gov/apprenticeship/apprenticeship-announcements", "type": "Registered apprenticeship", "funding": "Earn while you learn / training generally at no cost"}, {"category": "Apprenticeship", "region": "Westchester / Hudson Valley", "sponsor": "Westchester-Fairfield JEATC LU #3 IBEW", "posted": "May 05, 2026 | 1:09 PM ET", "opening_date": "7/1/2026", "closing_date": "6/30/2027", "details_url": "https://dol.ny.gov/apprenticeship/apprenticeship-announcements", "type": "Registered apprenticeship", "funding": "Earn while you learn / training generally at no cost"}, {"category": "Training", "region": "New York City", "sponsor": "LaGuardia Community College + Building Skills New York + Positive Workforce", "posted": "Program announcement", "opening_date": "See provider", "closing_date": "Varies by cohort", "details_url": "https://www.laguardia.edu/news/building-skills-new-york-laguardia-community-college-launch-free-training-to-expand-clean-energy-workforce/", "type": "CUNY tuition-free HVAC training", "funding": "Tuition-free / NYSERDA-funded"}, {"category": "Apprenticeship", "region": "New York City", "sponsor": "BMCC Aon Apprenticeship Program", "posted": "Recruitment timeline published", "opening_date": "Application opens January 1, 2026", "closing_date": "Application deadline March 2026", "details_url": "https://www.bmcc.cuny.edu/academics/experiential/apprenticeship-programs/apprenticeships-at-bmcc/", "type": "CUNY employer-paid apprenticeship", "funding": "Salary + 100% tuition, fees, and books paid"}, {"category": "Training", "region": "New York City", "sponsor": "College of Staten Island Free 7-Week EPA-608 HVAC Training", "posted": "January 02, 2025", "opening_date": "See provider", "closing_date": "Limited spaces", "details_url": "https://csitoday.com/2025/01/free-7-week-hvac-training-program-now-available-at-csi/", "type": "CUNY free short program", "funding": "Free of charge"}, {"category": "Training", "region": "New York City", "sponsor": "Building Skills NY NCCER Level 1 Training", "posted": "Provider listing", "opening_date": "Check current intake", "closing_date": "Varies by cohort", "details_url": "https://buildingskillsny.org/nccer-training/", "type": "Free workforce training", "funding": "No-cost"}, {"category": "Training", "region": "Westchester / Hudson Valley", "sponsor": "Healthy Home Academy Heat Pump Installation Training", "posted": "Program page", "opening_date": "Check provider schedule", "closing_date": "Varies by cohort", "details_url": "https://sustainablewestchester.org/clean-energy-workforce-program/", "type": "Free workforce training", "funding": "No tuition"}, {"category": "Scholarship", "region": "New York State", "sponsor": "UTUIA Trade Scholarships", "posted": "Scholarship page", "opening_date": "Check provider", "closing_date": "Varies", "details_url": "https://utuia.org/trade-scholarships/", "type": "Scholarship", "funding": "$2,000 renewable scholarship"}, {"category": "Scholarship", "region": "New York State", "sponsor": "NYHA Trade School Scholarship", "posted": "Scholarship page", "opening_date": "Check provider", "closing_date": "Varies", "details_url": "https://www.nyhousing.org/nyha-scholarship", "type": "Scholarship", "funding": "Tuition, books, and supplies support"}, {"category": "Training", "region": "New York City", "sponsor": "Sea Education New York Maritime Safety and Offshore Wind Training", "posted": "Program page", "opening_date": "Apply online / choose session", "closing_date": "Varies by cohort", "details_url": "https://www.seaeducation-ny.com/our-program", "type": "Free maritime entry-level training", "funding": "100% free + $1,000 stipend"}, {"category": "Training", "region": "New York City", "sponsor": "SIU Paul Hall Center Unlicensed Apprentice Program", "posted": "Entry program page", "opening_date": "See provider", "closing_date": "Rolling / see provider", "details_url": "https://www.seafarers.org/training-and-careers/jobs/entry-program/", "type": "Free maritime entry-level training", "funding": "Free classes, meals, and lodging + guaranteed first job"}, {"category": "Job", "region": "New York City", "sponsor": "Workforce1 Career Centers", "posted": "Ongoing city service", "opening_date": "Open now", "closing_date": "Rolling", "details_url": "https://www.nyc.gov/employment/programs/workforce1", "type": "Job search and free training access", "funding": "Free city service"}, {"category": "Job", "region": "New York City", "sponsor": "City of New York Jobs - Marine Oiler", "posted": "May 03, 2025", "opening_date": "See job posting", "closing_date": "See job posting", "details_url": "https://cityjobs.nyc.gov/job/marine-oiler-in-staten-island-jid-31942", "type": "Entry-level maritime-related job", "funding": "Paid city job"}, {"category": "Job", "region": "New York City", "sponsor": "Classic Harbor Line / Maritime Opportunities", "posted": "Job board page", "opening_date": "Check current openings", "closing_date": "Rolling", "details_url": "https://www.docknyc.com/job-search", "type": "Maritime job board", "funding": "Paid job listings"}, {"category": "Job", "region": "New York City", "sponsor": "MTA Skilled Trades Positions", "posted": "Always hiring page", "opening_date": "Open now", "closing_date": "Rolling", "details_url": "https://www.mta.info/careers/skilled-trades-positions", "type": "Trade job board", "funding": "Paid job listings"}, {"category": "Training", "region": "New York City", "sponsor": "DockNYC Maritime Job Training Resources", "posted": "Resource page", "opening_date": "Check current training links", "closing_date": "Rolling", "details_url": "https://www.docknyc.com/job-training", "type": "Maritime training directory", "funding": "Mixed free, scholarship, and paid options"}, {"category": "Training", "region": "New York City", "sponsor": "NYCEDC Offshore Wind and Maritime Workforce Programs", "posted": "Workforce page", "opening_date": "See program rollouts", "closing_date": "Varies", "details_url": "https://edc.nyc/workforce", "type": "Maritime and offshore wind workforce training", "funding": "Publicly funded programs and training investments"}, {"category": "Scholarship", "region": "New York City", "sponsor": "SUNY Maritime Scholarships and Grants", "posted": "Scholarship page", "opening_date": "Check scholarship deadlines", "closing_date": "Varies", "details_url": "https://www.sunymaritime.edu/admissions/scholarships", "type": "Maritime scholarship", "funding": "Scholarships and grants"}, {"category": "Scholarship", "region": "New York City", "sponsor": "SUNY Maritime Scholarship Listing", "posted": "Scholarship listing", "opening_date": "Check provider deadlines", "closing_date": "Varies", "details_url": "https://www.sunymaritime.edu/admissions/scholarship-listing", "type": "Maritime scholarship", "funding": "Tuition-free and merit-based scholarship options"}, {"category": "Training", "region": "New York City", "sponsor": "SUNY Maritime Professional Mariner Training", "posted": "Program page", "opening_date": "See course schedule", "closing_date": "Rolling by course", "details_url": "https://www.sunymaritime.edu/professional-mariner-training", "type": "Paid maritime professional training", "funding": "Paid courses"}, {"category": "Training", "region": "New York City", "sponsor": "BoatUS New York Boating Safety Course", "posted": "Course page", "opening_date": "Open now", "closing_date": "Rolling", "details_url": "https://www.boatus.org/newyork", "type": "Free boating safety course", "funding": "Free online course; permanent card fee optional"}, {"category": "Training", "region": "New York City", "sponsor": "Hudson River Park Free Boating Safety Classes", "posted": "Class schedule page", "opening_date": "Register for upcoming dates", "closing_date": "Varies by class", "details_url": "https://hudsonriverpark.org/free-boating-safety-classes-with-the-u-s-coast-guard-auxiliary/", "type": "Free boating safety class", "funding": "Free"}, {"category": "Job", "region": "New York City", "sponsor": "City of New York Jobs - Mariner", "posted": "February 06, 2026", "opening_date": "See job posting", "closing_date": "See job posting", "details_url": "https://cityjobs.nyc.gov/job/mariner-in-nyc-all-boros-jid-40419", "type": "Entry-level maritime-related job", "funding": "Paid city job"}]};
+const list = document.getElementById('list');
+const search = document.getElementById('search');
+const category = document.getElementById('category');
+const region = document.getElementById('region');
+const type = document.getElementById('type');
+const summary = document.getElementById('summary');
+
+function fillSelect(select, values){
+  select.innerHTML = '<option>All</option>';
+  values.forEach(v => {
+    const o = document.createElement('option');
+    o.value = v;
+    o.textContent = v;
+    select.appendChild(o);
+  });
+}
+
+fillSelect(category, [...new Set(DB.items.map(x => x.category))].sort());
+fillSelect(region, [...new Set(DB.items.map(x => x.region))].sort());
+fillSelect(type, [...new Set(DB.items.map(x => x.type))].sort());
+
+function getRows(){
+  const q = search.value.trim().toLowerCase();
+  return DB.items.filter(x => {
+    const hay = JSON.stringify(x).toLowerCase();
+    return (!q || hay.includes(q)) &&
+      (category.value === 'All' || x.category === category.value) &&
+      (region.value === 'All' || x.region === region.value) &&
+      (type.value === 'All' || x.type === type.value);
+  });
+}
+
+function render(){
+  const rows = getRows();
+  summary.textContent = rows.length + ' results shown | Updated ' + DB.updated;
+  list.innerHTML = rows.map(x => `
+    <article class="item">
+      <div class="region">${x.category} | ${x.region}</div>
+      <div class="sponsor">${x.sponsor}</div>
+      <div class="posted">${x.posted}</div>
+      <div class="dates">Opening Date ${x.opening_date} Closing Date ${x.closing_date}</div>
+      <div class="meta">
+        <span class="chip">${x.type}</span>
+        <span class="chip2">${x.funding}</span>
+      </div>
+      <div class="learn">- <a href="${x.details_url}" target="_blank">Learn more</a></div>
+    </article>
+  `).join('');
+  if(!rows.length) list.innerHTML = '<article class="item"><div class="sponsor">No results found.</div><div class="posted">Try a broader search or change a filter.</div></article>';
+}
+
+function openPrintView(){
+  const rows = getRows();
+  const body = rows.map(x => `
+    <article style="border-top:1px solid #e5e7eb;padding:16px 0;">
+      <div style="font-weight:700;margin-bottom:6px;">${x.category} | ${x.region}</div>
+      <div style="font-size:18px;font-weight:700;margin-bottom:8px;">${x.sponsor}</div>
+      <div style="color:#6b7280;margin-bottom:8px;">${x.posted}</div>
+      <div style="margin-bottom:8px;">Opening Date ${x.opening_date} Closing Date ${x.closing_date}</div>
+      <div style="margin-bottom:8px;">${x.type} | ${x.funding}</div>
+      <div><a href="${x.details_url}">${x.details_url}</a></div>
+    </article>
+  `).join('');
+  const w = window.open('', '_blank');
+  w.document.write(`<!DOCTYPE html><html><head><title>Print</title><style>body{font-family:Arial,Helvetica,sans-serif;padding:24px;color:#111827}h1{margin:0 0 8px}p{color:#374151}a{color:#1d4ed8}</style></head><body><h1>Trade Opportunities</h1><p>${rows.length} results shown</p>${body}</body></html>`);
+  w.document.close();
+  w.focus();
+  setTimeout(() => w.print(), 400);
+}
+
+document.getElementById('pdfBtn').addEventListener('click', openPrintView);
+search.addEventListener('input', render);
+category.addEventListener('change', render);
+region.addEventListener('change', render);
+type.addEventListener('change', render);
+render();
+</script>
+</body>
+</html>
