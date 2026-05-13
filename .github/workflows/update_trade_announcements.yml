@@ -9,19 +9,23 @@ jobs:
   refresh:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-python@v5
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
-      - run: pip install requests beautifulsoup4
+      - name: Install dependencies
+        run: pip install requests beautifulsoup4
 
-      - run: python update_trade_announcements.py
+      - name: Run script
+        run: python ${{ github.workspace }}/update_trade_announcements.py
 
-      - run: |
+      - name: Commit and push changes
+        run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
           git add trade_announcements_data.json
-          git diff --cached --quiet || git commit -m "Daily refresh"
-          git push
+          git diff --cached --quiet || (git commit -m "Daily refresh" && git push)
