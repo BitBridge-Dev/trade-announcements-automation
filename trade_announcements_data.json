@@ -1,5 +1,5 @@
 {
-  "updated": "2026-05-22",
+  "updated": "2026-05-23",
   "items": [
     {
       "category": "Apprenticeship",
@@ -59,7 +59,7 @@
       "details_url": "https://www.bmcc.cuny.edu/academics/experiential/apprenticeship-programs/apprenticeships-at-bmcc/",
       "type": "CUNY employer-paid apprenticeship",
       "funding": "Salary + 100% tuition, fees, and books paid",
-      "status": "Check failed: ReadTimeout"
+      "status": "Checked today"
     },
     {
       "category": "Training",
