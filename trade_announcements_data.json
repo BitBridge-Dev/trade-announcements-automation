@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-07",
+  "updated": "2026-06-08",
   "items": [
     {
       "category": "Apprenticeship",
@@ -47,7 +47,7 @@
       "details_url": "https://www.laguardia.edu/news/building-skills-new-york-laguardia-community-college-launch-free-training-to-expand-clean-energy-workforce/",
       "type": "CUNY tuition-free HVAC training",
       "funding": "Tuition-free / NYSERDA-funded",
-      "status": "HTTP 403"
+      "status": "Checked today"
     },
     {
       "category": "Apprenticeship",
@@ -71,7 +71,7 @@
       "details_url": "https://csitoday.com/2025/01/free-7-week-hvac-training-program-now-available-at-csi/",
       "type": "CUNY free short program",
       "funding": "Free of charge",
-      "status": "Check failed: ConnectTimeout"
+      "status": "Checked today"
     },
     {
       "category": "Training",
@@ -107,7 +107,7 @@
       "details_url": "https://utuia.org/trade-scholarships/",
       "type": "Scholarship",
       "funding": "$2,000 renewable scholarship",
-      "status": "Check failed: ConnectTimeout"
+      "status": "HTTP 406"
     },
     {
       "category": "Scholarship",
@@ -215,7 +215,7 @@
       "details_url": "https://www.boatus.org/newyork",
       "type": "Free boating safety course",
       "funding": "Free online course; permanent card fee optional",
-      "status": "HTTP 403"
+      "status": "Checked today"
     },
     {
       "category": "Training",
