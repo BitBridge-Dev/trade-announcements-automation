@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-29",
+  "updated": "2026-06-30",
   "items": [
     {
       "category": "Apprenticeship",
@@ -119,7 +119,7 @@
       "details_url": "https://www.nyhousing.org/nyha-scholarship",
       "type": "Scholarship",
       "funding": "Tuition, books, and supplies support",
-      "status": "Checked today"
+      "status": "HTTP 403"
     },
     {
       "category": "Training",
