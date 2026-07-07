@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-06",
+  "updated": "2026-07-07",
   "items": [
     {
       "category": "Apprenticeship",
@@ -71,7 +71,7 @@
       "details_url": "https://csitoday.com/2025/01/free-7-week-hvac-training-program-now-available-at-csi/",
       "type": "CUNY free short program",
       "funding": "Free of charge",
-      "status": "Check failed: ReadTimeout"
+      "status": "Checked today"
     },
     {
       "category": "Training",
