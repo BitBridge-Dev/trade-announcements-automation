@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-27",
+  "updated": "2026-07-28",
   "items": [
     {
       "category": "Apprenticeship",
@@ -215,7 +215,7 @@
       "details_url": "https://www.boatus.org/newyork",
       "type": "Free boating safety course",
       "funding": "Free online course; permanent card fee optional",
-      "status": "Check failed: ConnectionError"
+      "status": "Checked today"
     },
     {
       "category": "Training",
