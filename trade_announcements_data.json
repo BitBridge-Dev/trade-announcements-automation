@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-30",
+  "updated": "2026-10-01",
   "items": [
     {
       "category": "Apprenticeship",
@@ -47,7 +47,7 @@
       "details_url": "https://www.laguardia.edu/news/building-skills-new-york-laguardia-community-college-launch-free-training-to-expand-clean-energy-workforce/",
       "type": "CUNY tuition-free HVAC training",
       "funding": "Tuition-free / NYSERDA-funded",
-      "status": "Checked today"
+      "status": "HTTP 403"
     },
     {
       "category": "Apprenticeship",
@@ -83,7 +83,7 @@
       "details_url": "https://buildingskillsny.org/nccer-training/",
       "type": "Free workforce training",
       "funding": "No-cost",
-      "status": "Checked today"
+      "status": "HTTP 404"
     },
     {
       "category": "Training",
