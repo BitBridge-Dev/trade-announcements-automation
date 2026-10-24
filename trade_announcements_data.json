@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-23",
+  "updated": "2026-10-24",
   "items": [
     {
       "category": "Apprenticeship",
@@ -167,7 +167,7 @@
       "details_url": "https://edc.nyc/workforce",
       "type": "Maritime and offshore wind workforce training",
       "funding": "Publicly funded programs and training investments",
-      "status": "HTTP 403"
+      "status": "Checked today"
     },
     {
       "category": "Scholarship",
